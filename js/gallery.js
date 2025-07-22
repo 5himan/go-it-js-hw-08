@@ -73,14 +73,14 @@ function createGallery(arr) {
         .map(
             ({ preview, original, description }) => `
     <li class="gallery-item">
-    <a class="gallery-link" href= ${original}>
-    <img
-        class="gallery-image"
-        src= ${preview}
-        data-source= ${original}
-        alt= ${description}
-    />
-    </a>
+        <a class="gallery-link" href="${original}">
+            <img
+            class="gallery-image"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
+            />
+        </a>
     </li>
     `)
         .join("");
@@ -88,18 +88,17 @@ function createGallery(arr) {
 
 function handlerImg(evt) {
     evt.preventDefault();
-    if (evt.currentTarget === evt.target) {
+    if (evt.target.nodeName !== "IMG") {
         return;
     }
 
-    const img = evt.target.closest(".gallery-image");
-    const currentDataset = img.dataset.source;
+    const source = evt.target.dataset.source;
     const instance = basicLightbox.create(`
     <div>
-    <img class="modal-img" src=${currentDataset} alt="">
+    <img class="modal-img" src="${source}" alt="">
     </div>
     `, {
-        closable: true
+    closable: true
     });
     instance.show();
 }
